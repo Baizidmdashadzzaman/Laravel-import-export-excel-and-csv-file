@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
 use App\Exports\UsersExport;
+
+use App\Imports\DataStoreImport;
+use App\Exports\DataStoreExport;
+
 class UserController extends Controller
 {
     /**
@@ -19,7 +23,7 @@ class UserController extends Controller
     */
     public function fileImport(Request $request) 
     {
-        Excel::import(new UsersImport, $request->file('file')->store('temp'));
+        Excel::import(new DataStoreImport, $request->file('file')->store('temp'));
         return back();
     }
     /**
@@ -27,6 +31,6 @@ class UserController extends Controller
     */
     public function fileExport() 
     {
-        return Excel::download(new UsersExport, 'users-collection.xlsx');
+        return Excel::download(new DataStoreExport, 'users-collection.xlsx');
     }    
 }
